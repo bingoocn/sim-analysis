@@ -23,33 +23,34 @@ import com.cngc.simanalysis.repository.SampleRepository;
 @RequestMapping("/sample")
 public class SampleController {
     protected Logger logger = LoggerFactory.getLogger(SampleController.class);
-	@Autowired
-	private SampleRepository sampleRepository;
+    @Autowired
+    private SampleRepository sampleRepository;
 
-	@GetMapping
-	public ModelAndView list() {
-		Iterable<Sample> samples = sampleRepository.findAll();
-		return new ModelAndView("sample/list", "samples", samples);
-	}
+    @GetMapping
+    public ModelAndView list() {
+        Iterable<Sample> samples = sampleRepository.findAll();
+        return new ModelAndView("sample/list", "samples", samples);
+    }
 
-	@GetMapping("form")
-	public String createForm(@ModelAttribute Sample sample) {
-		return "sample/form";
-	}
+    @GetMapping("form")
+    public String createForm(@ModelAttribute Sample sample) {
+        return "sample/form";
+    }
 
-	@PostMapping("save")
-	public ModelAndView create(@Valid Sample sample, BindingResult result, RedirectAttributes redirect) {
-		if (result.hasErrors()) {
-			return new ModelAndView("sample/form", "formErrors", result.getAllErrors());
-		}
-		sample = sampleRepository.save(sample);
-		redirect.addFlashAttribute("globalMessage", "保存成功");
-		return new ModelAndView("redirect:/sample/{id}", "id", sample.getId());
-	}
-	
-	@GetMapping("{id}")
-	public ModelAndView view(@PathVariable("id")Long id) {
-	    logger.debug("查看id为{}的sample信息", id);
-		return new ModelAndView("sample/view", "sample", sampleRepository.findOne(id));
-	}
+    @PostMapping("save")
+    public ModelAndView create(@Valid Sample sample, BindingResult result,
+            RedirectAttributes redirect) {
+        if (result.hasErrors()) {
+            return new ModelAndView("sample/form", "formErrors", result.getAllErrors());
+        }
+        sample = sampleRepository.save(sample);
+        redirect.addFlashAttribute("globalMessage", "保存成功");
+        return new ModelAndView("redirect:/sample/{id}", "id", sample.getId());
+    }
+
+    @GetMapping("{id}")
+    public ModelAndView view(@PathVariable("id") Long id) {
+        logger.debug("查看id为{}的sample信息", id);
+        return new ModelAndView("sample/view", "sample", sampleRepository.findOne(id));
+    }
 }
