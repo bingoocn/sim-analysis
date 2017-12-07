@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="sample/layout">
+<head>
+<title>新增</title>
+</head>
+<body>
+	<h1 layout:fragment="header">新增</h1>
+	<div layout:fragment="content" class="container">
+		<form id="messageForm" th:action="@{save}" th:object="${sample}"
+			action="#" method="post">
+			<div th:if="${#fields.hasErrors('*')}" class="alert alert-error">
+				<p th:each="error : ${#fields.errors('*')}" th:text="${error}">
+					Validation error</p>
+			</div>
+			<div class="pull-right">
+				<a th:href="@{/sample}" href="messages.html"> 列表 </a>
+			</div>
+			<input type="hidden" th:field="*{id}"
+				th:class="${#fields.hasErrors('id')} ? 'field-error'" /> <label
+				for="title">主題</label> <input type="text" th:field="*{title}"
+				th:class="${#fields.hasErrors('title')} ? 'field-error'" /> <label
+				for="text">内容</label>
+			<textarea th:field="*{message}"
+				th:class="${#fields.hasErrors('message')} ? 'field-error'"></textarea>
+			<div class="form-actions">
+				<input type="submit" value="保存" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>

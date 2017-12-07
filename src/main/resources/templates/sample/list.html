@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="sample/layout">
+<head>
+<title>列表页面</title>
+<body>
+	<h1 layout:fragment="header">Samples : 查看所有</h1>
+	<div layout:fragment="content" class="container">
+		<div class="pull-right">
+			<a href="form.html" th:href="@{/sample/form}">新增</a>
+		</div>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>主题</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${samples.empty}">
+					<td colspan="3">没有内容</td>
+				</tr>
+				<tr th:each="sample : ${samples}">
+					<td th:text="${sample.id}">1</td>
+					<td><a href="view.html" th:href="@{'/sample/' + ${sample.id}}"
+						th:text="${sample.title}"> 1 </a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
