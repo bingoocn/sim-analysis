@@ -21,7 +21,7 @@
     </Appenders>  
   
     <Loggers>  
-        <Logger name="com.cngc.simanalysis" level="debug" additivity="false">  
+        <Logger name="com.cngc.simanalysis" level="info" additivity="false">  
             <AppenderRef ref="file" />  
         </Logger>  
         <Root level="info">  
